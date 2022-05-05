@@ -1,120 +1,40 @@
 #include "get_next_line.h"
 
-static void	release_fdb(t_fdb *fdb, t_fdb **fdblst)
+char	*ft_read_to_left_str(int fd, char *str)
 {
-	t_fdb	*curr;
-	t_fdb	*prev;
+	char	*buffer;
+	int	read_bytes;
 
-	prev = NULL;
-	curr = *fdblst;
-	while (curr)
-	{
-		if (curr->fd == fdb->fd)
-		{
-			if (prev)
-				prev->next = curr->next;
-			else
-				*fdblst = curr->next;
-			free(curr->buf);
-			free(curr);
-			return ;
-		}
-		prev = curr;
-		curr = curr->next;
-	}
-}
-
-static char	*extract_line(t_fdb *fdb)
-{
-	t_line	*line;
-	char	*str;
-	char	chr;
-
-	line = gnl_init_line();
-	while (!line->error && !fdb->eof)
-	{
-		chr = gnl_pop_char(fdb);
-		if (fdb->error)
-			break ;
-		gnl_push_char(line, chr);
-		if (line->error)
-			break ;
-		if (line->endl)
-		{
-			str = gnl_remalloc(line->buf, line->lpos, line->lpos + 1);
-			if (str)
-				str[line->lpos] = '\0';
-			gnl_free_line(line);
-			return (str);
-		}
-	}
-	gnl_free_line(line);
-	return (NULL);
-}
-
-static t_fdb	*create_fdb(int fd)
-{
-	t_fdb	*new;
-
-	new = malloc(sizeof(t_fdb));
-	if (!new)
+	buffer = malloc(sizeof(char) * BUFFER_SIZE + 1);
+	if (!buffer)
 		return (NULL);
-	new->buf = malloc(BUFFER_SIZE);
-	if (new->buf)
+	read_bytes = 1;
+	while (!ft_strchr(str, '\n') && rd_bytes != 0)
 	{
-		new->fd = fd;
-		new->nbytes = read(new->fd, new->buf, BUFFER_SIZE);
-		if (new->nbytes > 0)
+		rd_bytes = read(fd, buff, BUFFER_SIZE);
+		if (rd_bytes == -1)
 		{
-			new->bpos = 0;
-			new->next = NULL;
-			new->error = false;
-			new->eof = false;
-			return (new);
+			free(buff);
+			return (NULL);
 		}
-		free(new->buf);
+		buff[rd_bytes] = '\0';
+		left_str = ft_strjoin(left_str, buff);
 	}
-	free(new);
-	return (NULL);
-}
-
-static t_fdb	*acquire_fdb(int fd, t_fdb **fdblst)
-{
-	t_fdb	*last;
-	t_fdb	*new;
-
-	last = *fdblst;
-	while (last)
-	{
-		if (last->fd == fd)
-			return (last);
-		if (!last->next)
-			break ;
-		last = last->next;
-	}
-	new = create_fdb(fd);
-	if (!new)
-		return (NULL);
-	if (last)
-		last->next = new;
-	else
-		*fdblst = new;
-	return (new);
+	free(buff);
+	return (left_str);
 }
 
 char	*get_next_line(int fd)
 {
-	static t_fdb	*fdblst = NULL;
-	t_fdb			*fdb;
-	char			*line;
+	char		*line;
+	static char	*str[1024];
 
-	if (read(fd, NULL, 0) < 0 || BUFFER_SIZE < 1 || LBS < 1)
+	if (fd < 0 || BUFFER_SIZE <= 0)
+		return (0);
+	str[fd] = ft_read_str(fd, str[fd]);
+	if (!str[fd])
 		return (NULL);
-	fdb = acquire_fdb(fd, &fdblst);
-	if (!fdb)
-		return (NULL);
-	line = extract_line(fdb);
-	if (!line)
-		release_fdb(fdb, &fdblst);
+	line = ft_get_line(left_str[fd]);
+	left_str[fd] = ft_new_left_str(left_str[fd]);
 	return (line);
 }
