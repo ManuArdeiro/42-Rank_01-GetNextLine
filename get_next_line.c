@@ -1,6 +1,6 @@
 #include "get_next_line.h"
 
-char	*ft_read_to_left_str(int fd, char *str)
+char	*ft_read_str(int fd, char *str)
 {
 	char	*buffer;
 	int		read_bytes;
@@ -9,7 +9,7 @@ char	*ft_read_to_left_str(int fd, char *str)
 	if (!buffer)
 		return (NULL);
 	read_bytes = 1;
-	while (!ft_strchr(str, '\n') && read_bytes != 0)
+	while (!ft_str_chr(str, '\n') && read_bytes != 0)
 	{
 		read_bytes = read(fd, buffer, BUFFER_SIZE);
 		if (read_bytes == -1)
@@ -18,7 +18,7 @@ char	*ft_read_to_left_str(int fd, char *str)
 			return (NULL);
 		}
 		buffer[read_bytes] = '\0';
-		str = ft_strjoin(str, buffer);
+		str = ft_str_join(str, buffer);
 	}
 	free(buffer);
 	return (str);

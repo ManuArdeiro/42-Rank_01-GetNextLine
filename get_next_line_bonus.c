@@ -1,9 +1,9 @@
 #include "get_next_line.h"
 
-char	*ft_read_to_left_str(int fd, char *str)
+char	*ft_read_str(int fd, char *str)
 {
 	char	*buffer;
-	int	read_bytes;
+	int		read_bytes;
 
 	buffer = malloc(sizeof(char) * BUFFER_SIZE + 1);
 	if (!buffer)

@@ -53,7 +53,7 @@ char	*ft_str_join(char *str, char *buffer)
       i++;
     }
 	while (buffer[j] != '\0')
-		sol[i++] = buff[j++];
+		sol[i++] = buffer[j++];
 	sol[i] = '\0';
 	free(str);
 	return (sol);
