@@ -1,3 +1,5 @@
+#include "get_next_line.h"
+
 void	*ft_calloc(size_t count, size_t size)
 {
 	char	*ptr;
@@ -18,4 +20,14 @@ void	*ft_calloc(size_t count, size_t size)
 		i++;
 	}
 	return (ptr);
+}
+
+size_t	ft_strlen(const char *s)
+{
+	size_t	i;
+
+	i = 0;
+	while (s[i])
+		i++;
+	return (i);
 }
