@@ -8,8 +8,8 @@ void	*ft_calloc(size_t count, size_t size)
 	ptr = (void *)malloc(count * size);
 	if (!ptr)
 	{
-		return (NULL);
 		free(ptr);
+		return (NULL);
 	}
 	i = 0;
 	while (i < (count * size))
