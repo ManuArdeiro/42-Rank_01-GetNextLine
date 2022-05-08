@@ -1,4 +1,16 @@
-#include "get_next_line.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jolopez- <jolopez-@student.42madrid>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/05/08 13:19:59 by jolopez-          #+#    #+#             */
+/*   Updated: 2022/05/08 13:27:33 by jolopez-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "get_next_line_bonus.h"
 
 char	*ft_new_container(char *container)
 {
@@ -20,11 +32,7 @@ char	*ft_new_container(char *container)
 	i++;
 	j = 0;
 	while (container[i])
-	{
-		sol[j] = container[i];
-		i++;
-		j++;
-	}
+		sol[j++] = container[i++];
 	sol[j] = '\0';
 	free(container);
 	return (sol);

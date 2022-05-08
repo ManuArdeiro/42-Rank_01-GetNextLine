@@ -1,5 +1,17 @@
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_next_line_bonus.h                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jolopez- <jolopez-@student.42madrid>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/05/08 13:18:31 by jolopez-          #+#    #+#             */
+/*   Updated: 2022/05/08 13:37:42 by jolopez-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#ifndef GET_NEXT_LINE_BONUS_H
+# define GET_NEXT_LINE_BONUS_H
 
 # include <stdlib.h>
 # include <stdio.h>
@@ -14,7 +26,7 @@ char	*ft_read_buffer(int fd, char *str);
 char	*ft_get_line(char *container);
 char	*ft_new_container(char *container);
 size_t	ft_str_len(char *s);
-char	*ft_str_chr(char *s, int c);
-char	*ft_str_join(char *str, char *buffer);
+char	*ft_str_find_chr(char *s, int c);
+char	*ft_str_join_buffer(char *str, char *buffer);
 
 #endif
