@@ -48,7 +48,7 @@ char	*ft_str_join_buffer(char *str, char *buffer)
 	size_t	j;
 	char	*sol;
 
-	if (!str || !buffer)
+	if (!buffer)
 		return (NULL);
 	sol = malloc(sizeof(char) * ((ft_str_len(str) + ft_str_len(buffer)) + 1));
 	if (sol == NULL)
