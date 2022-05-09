@@ -50,7 +50,7 @@ char	*ft_str_join_buffer(char *str, char *buffer)
 
 	if (!buffer)
 		return (NULL);
-	sol = malloc(sizeof(char) * ((ft_str_len(str) + ft_str_len(buffer)) + 1));
+	sol = malloc(sizeof(char) * ((ft_str_len(str) + ft_str_len(buffer)) + 2));
 	if (sol == NULL)
 		return (NULL);
 	i = 0;

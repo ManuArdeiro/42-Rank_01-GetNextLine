@@ -19,6 +19,8 @@ char	*ft_new_container(char *container)
 	char	*sol;
 
 	i = 0;
+	if (!container)
+		return (NULL);
 	while (container[i] != '\0' && container[i] != '\n')
 		i++;
 	if (!container[i])
@@ -26,7 +28,7 @@ char	*ft_new_container(char *container)
 		free(container);
 		return (NULL);
 	}
-	sol = malloc(sizeof(char) * (ft_str_len(container) - i + 1));
+	sol = malloc(sizeof(char) * (ft_str_len(container) - i + 2));
 	if (!sol)
 		return (NULL);
 	i++;
@@ -44,8 +46,6 @@ char	*ft_get_line(char *container)
 	char	*sol;
 
 	i = 0;
-	if (!container)
-		return (NULL);
 	while (container[i] != '\0' && container[i] != '\n')
 		i++;
 	sol = malloc(sizeof(char) * i + 2);
@@ -60,6 +60,7 @@ char	*ft_get_line(char *container)
 	sol[i] = container[i];
 	i++;
 	sol[i] = '\0';
+	free (container);
 	return (sol);
 }
 
@@ -80,8 +81,11 @@ char	*ft_read_buffer(int fd, char *container)
 			free(buffer);
 			return (NULL);
 		}
+		printf("buffer = %s", buffer);
 		buffer[buffer_len] = '\0';
 		container = ft_str_join_buffer(container, buffer);
+		if (!container)
+			return (NULL);
 	}
 	free(buffer);
 	return (container);
@@ -92,10 +96,12 @@ char	*get_next_line(int fd)
 	char		*line;
 	static char	*container;
 
-	container = 0;
+	container[0] = 0;
+	printf("Comienzo...\n");
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
 	container = ft_read_buffer(fd, container);
+	printf("Container = %s\n", container);
 	if (!container)
 		return (NULL);
 	line = ft_get_line(container);
