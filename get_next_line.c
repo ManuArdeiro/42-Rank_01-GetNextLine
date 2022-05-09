@@ -92,6 +92,7 @@ char	*get_next_line(int fd)
 	char		*line;
 	static char	*container;
 
+	container = 0;
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
 	container = ft_read_buffer(fd, container);
