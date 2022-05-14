@@ -13,11 +13,12 @@ int		main(void)
 	file = "get_next_line.c";
 	printf("file = %s\n", file);
 	fd = open(file, O_RDONLY);
-	printf("fd = %d", fd);
-	line = get_next_line(fd);
-	printf("line = %s", line);
+	printf("fd = %d\n", fd);
 	while (line)
-		printf("%s\n", line);
+	{
+		line = get_next_line(fd);
+		printf("line = %s", line);
+	}
 	close(fd);
 	return (0);
 }

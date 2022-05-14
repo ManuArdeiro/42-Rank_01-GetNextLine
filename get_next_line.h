@@ -32,6 +32,6 @@ char	*ft_get_line(char *container);
 char	*ft_new_container(char *container);
 size_t	ft_str_len(char *s);
 char	*ft_str_find_chr(char *s, int c);
-char	*ft_str_join_buffer(char *str, char *buffer);
+char	*ft_str_join_buffer(char *container, char *buffer);
 
 #endif
