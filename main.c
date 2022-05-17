@@ -10,7 +10,8 @@ int		main(void)
 	char	*line;
 	char	*file;
 
-	file = "get_next_line.c";
+	line = "";
+	file = NULL;
 	printf("file = %s\n", file);
 	fd = open(file, O_RDONLY);
 	printf("fd = %d\n", fd);

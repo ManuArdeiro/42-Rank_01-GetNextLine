@@ -6,7 +6,7 @@
 /*   By: jolopez- <jolopez-@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/08 13:18:47 by jolopez-          #+#    #+#             */
-/*   Updated: 2022/05/08 13:56:06 by jolopez-         ###   ########.fr       */
+/*   Updated: 2022/05/17 18:13:13 by jolopez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,6 @@ char	*ft_new_container(char *container)
 	char	*sol;
 
 	i = 0;
-	if (!container)
-		return (NULL);
 	while (container[i] && container[i] != '\n')
 		i++;
 	if (container[i] == '\0')
@@ -50,7 +48,7 @@ char	*ft_get_line(char *container)
 		return (NULL);
 	while (container[i] && container[i] != '\n')
 		i++;
-	sol = malloc(sizeof(char) * i + 2);
+	sol = malloc(sizeof(char) * (i + 2));
 	if (!sol)
 		return (NULL);
 	i = 0;
@@ -98,13 +96,11 @@ char	*get_next_line(int fd)
 	static char	*container;
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
-		return (NULL);
+		return (0);
 	container = ft_read_buffer(fd, container);
 	if (!container)
 		return (NULL);
 	line = ft_get_line(container);
 	container = ft_new_container(container);
-	if (!container)
-		return (NULL);
 	return (line);
 }

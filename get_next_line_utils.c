@@ -6,7 +6,7 @@
 /*   By: jolopez- <jolopez-@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/08 13:21:51 by jolopez-          #+#    #+#             */
-/*   Updated: 2022/05/08 13:52:57 by jolopez-         ###   ########.fr       */
+/*   Updated: 2022/05/17 18:10:39 by jolopez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,14 @@ char	*ft_str_join_buffer(char *container, char *buffer)
 	size_t	j;
 	char	*sol;
 
-	if (!buffer)
+	if (!container)
+	{
+		container = malloc(sizeof(char) * 1);
+		container[0] = '\0';
+	}
+	if (!buffer || !container)
 		return (NULL);
-	sol = malloc(sizeof(char) * ((ft_str_len(container) + ft_str_len(buffer)) + 1));
+	sol = malloc(sizeof(char) * ft_str_len(container) + ft_str_len(buffer) + 1);
 	if (sol == NULL)
 		return (NULL);
 	i = 0;
@@ -65,7 +70,7 @@ char	*ft_str_join_buffer(char *container, char *buffer)
 	}
 	while (buffer[j] != '\0')
 		sol[i++] = buffer[j++];
-	sol[i] = '\0';
+	sol[ft_str_len(container) + ft_str_len(buffer)] = '\0';
 	free (container);
 	return (sol);
 }
