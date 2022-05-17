@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line_utils_bonus.c                        :+:      :+:    :+:   */
+/*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jolopez- <jolopez-@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/08 13:22:05 by jolopez-          #+#    #+#             */
-/*   Updated: 2022/05/08 13:57:39 by jolopez-         ###   ########.fr       */
+/*   Created: 2022/05/08 13:21:51 by jolopez-          #+#    #+#             */
+/*   Updated: 2022/05/17 18:33:37 by jolopez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 size_t	ft_str_len(char *s)
 {
@@ -42,30 +42,35 @@ char	*ft_str_find_chr(char *s, int c)
 	return (0);
 }
 
-char	*ft_str_join_buffer(char *str, char *buffer)
+char	*ft_str_join_buffer(char *container, char *buffer)
 {
 	size_t	i;
 	size_t	j;
 	char	*sol;
 
-	if (!str || !buffer)
+	if (!container)
+	{
+		container = malloc(sizeof(char) * 1);
+		container[0] = '\0';
+	}
+	if (!buffer || !container)
 		return (NULL);
-	sol = malloc(sizeof(char) * ((ft_str_len(str) + ft_str_len(buffer)) + 1));
+	sol = malloc(sizeof(char) * ft_str_len(container) + ft_str_len(buffer) + 1);
 	if (sol == NULL)
 		return (NULL);
 	i = 0;
 	j = 0;
-	if (str)
+	if (container)
 	{
-		while (str[i] != '\0')
+		while (container[i] != '\0')
 		{
-			sol[i] = str[i];
+			sol[i] = container[i];
 			i++;
 		}
 	}
 	while (buffer[j] != '\0')
 		sol[i++] = buffer[j++];
-	sol[i] = '\0';
-	free(str);
+	sol[ft_str_len(container) + ft_str_len(buffer)] = '\0';
+	free (container);
 	return (sol);
 }

@@ -6,11 +6,11 @@
 /*   By: jolopez- <jolopez-@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/08 13:18:47 by jolopez-          #+#    #+#             */
-/*   Updated: 2022/05/08 13:56:06 by jolopez-         ###   ########.fr       */
+/*   Updated: 2022/05/17 18:33:10 by jolopez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 char	*ft_new_container(char *container)
 {
@@ -19,8 +19,6 @@ char	*ft_new_container(char *container)
 	char	*sol;
 
 	i = 0;
-	if (!container)
-		return (NULL);
 	while (container[i] && container[i] != '\n')
 		i++;
 	if (container[i] == '\0')
@@ -46,11 +44,11 @@ char	*ft_get_line(char *container)
 	char	*sol;
 
 	i = 0;
-	if (!container)
+	if (!container[i])
 		return (NULL);
 	while (container[i] && container[i] != '\n')
 		i++;
-	sol = malloc(sizeof(char) * i + 2);
+	sol = malloc(sizeof(char) * (i + 2));
 	if (!sol)
 		return (NULL);
 	i = 0;
@@ -95,16 +93,14 @@ char	*ft_read_buffer(int fd, char *container)
 char	*get_next_line(int fd)
 {
 	char		*line;
-	static char	*container[1024];
+	static char	*container[OPEN_MAX];
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
-		return (NULL);
+		return (0);
 	container[fd] = ft_read_buffer(fd, container[fd]);
 	if (!container[fd])
 		return (NULL);
 	line = ft_get_line(container[fd]);
 	container[fd] = ft_new_container(container[fd]);
-	if (!container[fd])
-		return (NULL);
 	return (line);
 }
